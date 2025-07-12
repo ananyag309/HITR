@@ -126,4 +126,32 @@ Supports:
 ---
 
 
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v16+)
+- MongoDB URI
+
+
+### 🖥️ Setup
+
+```bash
+cd backend
+npm install
+# Add a `.env` file as shown below
+npm run start
+
+cd frontend
+npm install
+npm run dev
+
+.env
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+
+```
+
+
+
 ## 🏆 Built with ❤ at Odoo Hackathon 2025
