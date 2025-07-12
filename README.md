@@ -129,6 +129,78 @@ Supports:
 
 ---
 
+### 🔐 Environment Variables
+
+Create **two** separate `.env` files—one for the **backend** and one for the **frontend**—so secrets never live in code.
+
+<details>
+<summary>📁 <code>backend/.env</code></summary>
+
+```bash
+# ───── Database Configuration ─────
+MONGODB_URI= Your_MongoDB_URI
+
+# ───── JWT Configuration ─────
+JWT_SECRET= Enter_Your_JWT_Secret_KEY
+
+# ───── Server Configuration ─────
+PORT=5001            # API server port
+NODE_ENV=development # change to “production” on deploy
+
+# ───── CORS ─────
+FRONTEND_URL=http://localhost:5173
+```
+
+</details>
+
+<details>
+<summary>📁 <code>frontend/.env</code></summary>
+
+```bash
+# Vite prefixes all public env vars with “VITE_”
+VITE_API_URL=http://localhost:5001/api
+```
+
+</details>
+
+> **Heads‑up:**
+>
+> * Never commit your `.env` files—add them to **.gitignore**.
+> * Use a secret manager (e.g., Render, Vercel, GitHub Actions, or Docker secrets) in production.
+
+---
+
+### ⏱️ Quick Start
+
+1. **Clone & install**
+
+   ```bash
+   git clone https://github.com/your‑org/devflow.git
+   cd devflow
+   npm install            # backend deps
+   cd frontend && npm i   # frontend deps
+   ```
+
+2. **Add the two `.env` files** exactly as shown above.
+
+3. **Run in development**
+
+   ```bash
+   # 🖥️ backend
+   cd ../
+   npm run dev            # nodemon on :5001
+
+   # 🌐 frontend (in a new terminal)
+   cd frontend
+   npm run dev            # Vite on :5173
+   ```
+
+Both servers should now be live:
+
+* **API** → [http://localhost:5001/api](http://localhost:5001/api)
+* **React app** → [http://localhost:5173](http://localhost:5173)
+
+Happy coding! 🎉
 
 
 ## 🚀 Getting Started
