@@ -1,33 +1,92 @@
-# StackIt
+# 🚀 StackIt – A Minimal Q&A Forum Platform.
+Built by Team 4118 | Odoo Hackathon 2025
 
-**StackIt** is a collaborative platform designed to help developers solve coding challenges faster, together. It enables real-time collaboration, problem-solving, and skill development within a supportive community.
+---
 
-## Features
+## 🧠 Overview
 
-- **Real-Time Collaboration**: Work together with fellow developers on coding problems and projects.
-- **Community Support**: Engage with a community of developers ready to assist and share knowledge.
-- **Learning and Growth**: Enhance your coding skills through collaborative problem-solving and shared learning experiences.
+*StackIt* is a minimal question-and-answer platform designed for collaborative learning and structured knowledge sharing.  
+It focuses on simplicity, usability, and the core experience of asking and answering questions within a supportive community.
 
-## Live Demo
+---
 
-Experience StackIt in action:
+## 👥 Team 4118
 
-[https://devflow-1.onrender.com/](https://devflow-1.onrender.com/)
+- 👩‍💻 Ananya Gupta – [GitHub](https://github.com/ananyag309)
+- 🤖 Devanshi Jaiswal – [GitHub](https://github.com/Devanshi-cloud)
+- 📊 Aditi Singh – [GitHub](https://github.com/Aditi-Singh-15)
+- 🎨 Aditi Jain – [GitHub](https://github.com/Aditijainnn)
 
-## Tech Stack
+## 👤 User Roles
 
-- **Frontend**: React.js
-- **Backend**: Node.js with Express
-- **Real-Time Communication**: Socket.io
-- **Database**: MongoDB
-- **Deployment**: Render
+| Role   | Permissions |
+|--------|-------------|
+| Guest  | View all questions and answers |
+| User   | Register, log in, post questions/answers, vote |
+| Admin  | Moderate content |
 
-## Installation
+---
 
-To run StackIt locally:
+## 🛠 Core Features
 
-1. Clone the repository:
+### 1️⃣ Ask a Question
+Users can submit new questions with:
+- *Title* – Short and descriptive
+- *Description* – Rich text formatting supported
+- *Tags* – Multi-select (e.g., React, JWT)
 
-   ```bash
-   git clone https://github.com/yourusername/stackit.git
-   cd stackit
+---
+
+### 2️⃣ Rich Text Editor
+Supports:
+- *Formatting:* Bold, Italic, Strikethrough  
+- *Lists:* Numbered & Bullet points  
+- *Media:* Image upload, Emoji insertion  
+- *Text Tools:* Hyperlinks, Text alignment (Left, Center, Right)
+
+---
+
+### 3️⃣ Answering Questions
+- Users can post answers using the same rich text editor
+- Only *logged-in users* can post answers
+
+---
+
+### 4️⃣ Voting & Accepting Answers
+- Upvote/Downvote functionality for answers
+- Question owners can *mark an answer as accepted*
+
+---
+
+### 5️⃣ Tagging System
+- All questions must have *at least one relevant tag*
+- Tags help in filtering and content discovery
+
+---
+
+### 6️⃣ 🔔 Notification System
+- Bell icon in top navbar shows unread count
+- Users get notified when:
+  - Someone answers their question
+  - Someone comments on their answer
+  - They’re mentioned using @username
+- Dropdown shows recent notifications on click
+
+---
+
+## 📸 Demo (Coming Soon!)
+> Screenshots / Demo Video Link
+
+---
+
+## 🧱 Tech Stack
+
+- *Frontend:* 
+- *Backend:* 
+- *Database:* 
+- *Auth & Security:* 
+- *Editor:* 
+
+---
+
+## 🏆 Built with ❤ at Odoo Hackathon 2025
