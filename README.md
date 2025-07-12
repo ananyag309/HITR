@@ -1,5 +1,7 @@
 # 🚀 StackIt – A Minimal Q&A Forum Platform.
 Built by Team 4118 | Odoo Hackathon 2025
+![StackIt](https://github.com/ananyag309/HITR/blob/462cb6fb2cb06bfa65cf0f70481adabe51ef7401/assests/5.jpeg)
+
 
 ---
 
