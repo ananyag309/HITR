@@ -91,23 +91,28 @@ Supports:
 - *Media:* Image upload, Emoji insertion  
 - *Text Tools:* Hyperlinks, Text alignment (Left, Center, Right)
 
+  
+
 ---
 
 ### 3️⃣ Answering Questions
 - Users can post answers using the same rich text editor
 - Only *logged-in users* can post answers
-
+ <img src="https://github.com/ananyag309/HITR/blob/f785694e02b7388f9e94cd1b1a0e7de42dfc3e2a/assests/3.jpeg" alt="StackIt" width="500"/>
 ---
 
 ### 4️⃣ Voting & Accepting Answers
 - Upvote/Downvote functionality for answers
 - Question owners can *mark an answer as accepted*
 
+<img src="https://github.com/ananyag309/HITR/blob/f785694e02b7388f9e94cd1b1a0e7de42dfc3e2a/assests/3.jpeg" alt="StackIt" width="500"/>
+
 ---
 
 ### 5️⃣ Tagging System
 - All questions must have *at least one relevant tag*
 - Tags help in filtering and content discovery
+<img src="https://github.com/ananyag309/HITR/blob/f785694e02b7388f9e94cd1b1a0e7de42dfc3e2a/assests/2.jpeg" alt="StackIt" width="500"/>
 
 ---
 
