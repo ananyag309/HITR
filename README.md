@@ -119,6 +119,13 @@ Supports:
   - They’re mentioned using @username
 - Dropdown shows recent notifications on click
 
+---
+### Database - MongoDB
+
+<p align="center">
+  <img src="https://github.com/ananyag309/HITR/blob/main/assests/6.jpeg.png" width="45%" />
+  <img src="https://github.com/ananyag309/HITR/blob/main/assests/7.jpeg.png" width="47%" />
+</p>
 
 ---
 
