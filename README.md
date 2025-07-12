@@ -200,34 +200,6 @@ Both servers should now be live:
 * **API** → [http://localhost:5001/api](http://localhost:5001/api)
 * **React app** → [http://localhost:5173](http://localhost:5173)
 
-Happy coding! 🎉
-
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v16+)
-- MongoDB URI
-
-
-### 🖥️ Setup
-
-```bash
-cd backend
-npm install
-# Add a `.env` file as shown below
-npm run dev
-
-cd frontend
-npm install
-npm run dev
-
-.env
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-
-```
-
 
 
 ## 🏆 Built with ❤ at Odoo Hackathon 2025
