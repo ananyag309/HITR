@@ -23,6 +23,13 @@ Meet the amazing developers behind StackIt:
 
 ---
 
+---
+
+## 📸 Demo (Coming Soon!)
+> Screenshots / Demo Video Link
+
+---
+
 ## ✨ Key Features
 
 ### 🔥 *Core Features*
@@ -104,10 +111,6 @@ Supports:
   - They’re mentioned using @username
 - Dropdown shows recent notifications on click
 
----
-
-## 📸 Demo (Coming Soon!)
-> Screenshots / Demo Video Link
 
 ---
 
