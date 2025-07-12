@@ -25,7 +25,7 @@ Meet the amazing developers behind StackIt:
 | 👩‍💻 *Lead Developer* | Ananya Gupta | [GitHub](https://github.com/ananyag309) | Full-Stack Development, System Architecture |
 | 🤖 *Backend Engineer* | Devanshi Jaiswal | [GitHub](https://github.com/Devanshi-cloud) | Node.js, Database Design, API Development |
 | 📊 *Frontend Developer* | Aditi Singh | [GitHub](https://github.com/Aditi-Singh-15) | React.js, UI/UX, State Management |
-| 🎨 *UI/UX Designer* | Aditi Jain | [GitHub](https://github.com/Aditijainnn) | Design Systems, User Experience, Frontend |
+| 💻 *Product Designer* | Aditi Jain | [GitHub](https://github.com/Aditijainnn) | Design Systems, User Experience, web dev |
 
 ---
 
@@ -79,6 +79,8 @@ Users can submit new questions with:
 - *Title* – Short and descriptive
 - *Description* – Rich text formatting supported
 - *Tags* – Multi-select (e.g., React, JWT)
+
+  <img src="https://github.com/ananyag309/HITR/blob/512289e6ace2d65c652d1ed521d3491578d60ff6/assests/4.jpeg" alt="StackIt" width="500"/>
 
 ---
 
