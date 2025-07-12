@@ -6,7 +6,7 @@ import Signup from './components/Signup';
 import QuestionDetail from './components/QuestionDetail';
 import Homepage from './components/Homepage';
 import UserDetails from './components/UserDetails';
-import Profile from './components/Proflile';
+import Profile from './components/Profile';
 import QuestionsAndAnswers from './components/QuestionsAndAnswers';
 import UserList from './components/UserList';
 

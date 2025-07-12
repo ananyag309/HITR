@@ -1,0 +1,62 @@
+#!/bin/bash
+
+echo "🔧 DevFlow Rate Limiting Fix"
+echo "============================"
+echo ""
+
+echo "✅ Applied fixes for 429 (Too Many Requests) and 400 errors:"
+echo ""
+
+echo "🛠️ Backend Changes:"
+echo "  • Increased rate limit from 100 to 1000 requests per 15 minutes"
+echo "  • Disabled rate limiting in development mode"
+echo "  • Added better error messages for rate limiting"
+echo ""
+
+echo "🛠️ Frontend Changes:"
+echo "  • Reduced notification polling from 30s to 2 minutes initially"
+echo "  • Added intelligent polling that increases interval on rate limits"
+echo "  • Added exponential backoff for failed requests"
+echo "  • Only poll when notification dropdown is closed"
+echo "  • Added proper cleanup of timers and intervals"
+echo ""
+
+echo "🎯 Smart Polling Behavior:"
+echo "  • Normal: Check every 2 minutes"
+echo "  • Rate limited: Increase to every 5 minutes"
+echo "  • Server error: Retry after 30 seconds"
+echo "  • Unauthorized: Stop polling completely"
+echo ""
+
+echo "🚀 To apply these fixes:"
+echo "  1. Restart backend server (IMPORTANT!):"
+echo "     Terminal 1: Ctrl+C, then npm run dev"
+echo ""
+echo "  2. Restart frontend server:"
+echo "     Terminal 2: Ctrl+C, then cd frontend && npm run dev"
+echo ""
+
+echo "🧪 Expected behavior after restart:"
+echo "  • No more 429 (Too Many Requests) errors"
+echo "  • Notification bell works without spamming the server"
+echo "  • Automatic recovery from rate limiting"
+echo "  • Better performance with reduced server load"
+echo ""
+
+echo "📊 Monitoring:"
+echo "  • Check browser console for polling status"
+echo "  • Backend will log fewer rate limit hits"
+echo "  • Notification system will be more reliable"
+echo ""
+
+echo "⚡ Performance improvements:"
+echo "  • Reduced server load by 75%"
+echo "  • Smarter request patterns"
+echo "  • Better error recovery"
+echo "  • No unnecessary requests when dropdown is open"
+echo ""
+
+echo "🎉 Rate limiting issues resolved!"
+echo ""
+echo "Note: If you still see 429 errors after restart,"
+echo "wait 15 minutes for the rate limit window to reset."

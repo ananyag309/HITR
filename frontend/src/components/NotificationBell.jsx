@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Bell, X, Check, CheckCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../lib/api';
@@ -9,17 +9,39 @@ const NotificationBell = () => {
   const [unreadCount, setUnreadCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const retryTimeoutRef = useRef(null);
+  const pollIntervalRef = useRef(null);
 
   const token = Cookies.get('token');
 
   useEffect(() => {
     if (token) {
       fetchUnreadCount();
-      // Poll for new notifications every 30 seconds
-      const interval = setInterval(fetchUnreadCount, 30000);
-      return () => clearInterval(interval);
+      // Start with longer interval (2 minutes) to avoid rate limiting
+      startPolling(120000); // 2 minutes
     }
+    
+    return () => {
+      if (pollIntervalRef.current) {
+        clearInterval(pollIntervalRef.current);
+      }
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+      }
+    };
   }, [token]);
+
+  const startPolling = (interval) => {
+    if (pollIntervalRef.current) {
+      clearInterval(pollIntervalRef.current);
+    }
+    
+    pollIntervalRef.current = setInterval(() => {
+      if (!isOpen) { // Only poll when dropdown is closed
+        fetchUnreadCount();
+      }
+    }, interval);
+  };
 
   const fetchUnreadCount = async () => {
     try {
@@ -27,6 +49,32 @@ const NotificationBell = () => {
       setUnreadCount(response.data.count);
     } catch (error) {
       console.error('Error fetching unread count:', error);
+      
+      // If rate limited (429), increase polling interval
+      if (error.response?.status === 429) {
+        console.log('Rate limited, increasing polling interval to 5 minutes');
+        startPolling(300000); // 5 minutes
+        setUnreadCount(0);
+        return;
+      }
+      
+      // If unauthorized, hide the notification bell
+      if (error.response?.status === 401) {
+        console.log('User not authenticated, hiding notification bell');
+        setUnreadCount(0);
+        // Stop polling if unauthorized
+        if (pollIntervalRef.current) {
+          clearInterval(pollIntervalRef.current);
+        }
+      }
+      
+      // For server errors, wait before retrying
+      if (error.response?.status >= 500) {
+        console.log('Server error, will retry in 30 seconds');
+        retryTimeoutRef.current = setTimeout(() => {
+          fetchUnreadCount();
+        }, 30000);
+      }
     }
   };
 

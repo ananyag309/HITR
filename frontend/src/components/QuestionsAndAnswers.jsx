@@ -39,16 +39,104 @@ const QuestionsAndAnswers = () => {
 
   const fetchQuestions = async () => {
     try {
+      setLoading(true);
       const response = await fetch(`${import.meta.env.VITE_API_URL}/questions`);
-      if (!response.ok) throw new Error("Failed to fetch questions");
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
 
       const data = await response.json();
+      console.log('✅ Questions fetched:', data.length, 'questions');
       setQuestions(data);
+      setError(null); // Clear any previous errors
     } catch (err) {
-      setError("Failed to load questions");
+      console.error('❌ Error fetching questions:', err);
+      setError(`Failed to load questions: ${err.message}`);
+      // Don't clear existing questions on error, keep them visible
     } finally {
       setLoading(false);
     }
+  };
+
+  // Sort and filter questions based on current filters
+  const getFilteredAndSortedQuestions = () => {
+    let filtered = [...questions];
+
+    // Apply search filter
+    if (filters.search) {
+      filtered = filtered.filter(
+        (q) =>
+          q.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+          q.body.toLowerCase().includes(filters.search.toLowerCase())
+      );
+    }
+
+    // Apply tag filter
+    if (filters.tags.length > 0) {
+      filtered = filtered.filter((q) =>
+        filters.tags.some((tag) => q.tags.includes(tag))
+      );
+    }
+
+    // Apply date filter
+    if (filters.dateRange !== "all") {
+      const now = new Date();
+      const filterDate = new Date();
+      
+      switch (filters.dateRange) {
+        case "today":
+          filterDate.setDate(now.getDate() - 1);
+          break;
+        case "week":
+          filterDate.setDate(now.getDate() - 7);
+          break;
+        case "month":
+          filterDate.setMonth(now.getMonth() - 1);
+          break;
+      }
+      
+      filtered = filtered.filter((q) => new Date(q.createdAt) >= filterDate);
+    }
+
+    // Apply vote range filter
+    if (filters.minVotes) {
+      filtered = filtered.filter((q) => (q.votes || 0) >= parseInt(filters.minVotes));
+    }
+    if (filters.maxVotes) {
+      filtered = filtered.filter((q) => (q.votes || 0) <= parseInt(filters.maxVotes));
+    }
+
+    // Apply sorting
+    switch (filters.sortBy) {
+      case "newest":
+        filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        break;
+      case "oldest":
+        filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        break;
+      case "votes":
+        filtered.sort((a, b) => (b.votes || 0) - (a.votes || 0));
+        break;
+      case "answers":
+        filtered.sort((a, b) => (b.answerCount || 0) - (a.answerCount || 0));
+        break;
+      case "unanswered":
+        filtered = filtered.filter((q) => (q.answerCount || 0) === 0);
+        filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        break;
+      case "active":
+        filtered.sort((a, b) => {
+          const aLastActivity = new Date(a.lastActivityDate || a.createdAt);
+          const bLastActivity = new Date(b.lastActivityDate || b.createdAt);
+          return bLastActivity - aLastActivity;
+        });
+        break;
+      default:
+        filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+
+    return filtered;
   };
 
   const handleVote = async (questionId, voteType) => {
@@ -165,14 +253,25 @@ const QuestionsAndAnswers = () => {
         </div>
         {/* Create Question Button */}
         <div className="p-4 flex justify-end">
-          <button
-            onClick={() => setIsCreateModalOpen(true)}
-            className="px-6 py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600
-               transition-colors duration-200 flex items-center gap-2"
-          >
-            <span className="text-lg">+</span>
-            Create Question
-          </button>
+          {token ? (
+            <button
+              onClick={() => setIsCreateModalOpen(true)}
+              className="px-6 py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600
+                 transition-colors duration-200 flex items-center gap-2"
+            >
+              <span className="text-lg">+</span>
+              Create Question
+            </button>
+          ) : (
+            <button
+              onClick={() => window.location.href = '/login'}
+              className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700
+                 transition-colors duration-200 flex items-center gap-2"
+            >
+              <span className="text-lg">+</span>
+              Sign in to Create Question
+            </button>
+          )}
         </div>
 
         {/* Create Question Modal */}
@@ -198,9 +297,11 @@ const QuestionsAndAnswers = () => {
                 }
               >
                 <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
                 <option value="votes">Most Voted</option>
                 <option value="answers">Most Answered</option>
-                <option value="trending">Trending</option>
+                <option value="unanswered">Unanswered</option>
+                <option value="active">Recently Active</option>
               </select>
             </FilterSection>
 
@@ -304,40 +405,64 @@ const QuestionsAndAnswers = () => {
               </div>
             ) : (
               <div className="space-y-6">
-                {filteredQuestions.map((question) => (
+                {getFilteredAndSortedQuestions().map((question) => (
                   <div
                     key={question._id}
                     className="bg-[#1a1f2e] p-6 rounded-xl border border-gray-700/20 hover:border-indigo-400/30
                              transform transition-all duration-200 hover:shadow-lg hover:shadow-indigo-400/5"
                   >
                     <div className="flex items-start gap-6">
-                      {/* Vote buttons with softer interaction */}
+                      {/* Vote buttons with guest mode restrictions */}
                       <div className="flex flex-col items-center gap-2 min-w-[80px]">
-                        <button
-                          onClick={() => handleVote(question._id, "up")}
-                          className={`p-2 rounded-lg transition-colors duration-200 ${
-                            question.hasUpvoted
-                              ? "bg-indigo-500 text-white"
-                              : "bg-[#1e2333] hover:bg-[#252b3d] text-gray-300"
-                          }`}
-                          disabled={loading}
-                        >
-                          ▲
-                        </button>
-                        <span className="text-xl font-medium text-gray-200">
-                          {question.votes || 0}
-                        </span>
-                        <button
-                          onClick={() => handleVote(question._id, "down")}
-                          className={`p-2 rounded-lg transition-colors duration-200 ${
-                            question.hasDownvoted
-                              ? "bg-red-500 text-white"
-                              : "bg-[#1e2333] hover:bg-[#252b3d] text-gray-300"
-                          }`}
-                          disabled={loading}
-                        >
-                          ▼
-                        </button>
+                        {token ? (
+                          <>
+                            <button
+                              onClick={() => handleVote(question._id, "up")}
+                              className={`p-2 rounded-lg transition-colors duration-200 ${
+                                question.hasUpvoted
+                                  ? "bg-indigo-500 text-white"
+                                  : "bg-[#1e2333] hover:bg-[#252b3d] text-gray-300"
+                              }`}
+                              disabled={loading}
+                            >
+                              ▲
+                            </button>
+                            <span className="text-xl font-medium text-gray-200">
+                              {question.votes || 0}
+                            </span>
+                            <button
+                              onClick={() => handleVote(question._id, "down")}
+                              className={`p-2 rounded-lg transition-colors duration-200 ${
+                                question.hasDownvoted
+                                  ? "bg-red-500 text-white"
+                                  : "bg-[#1e2333] hover:bg-[#252b3d] text-gray-300"
+                              }`}
+                              disabled={loading}
+                            >
+                              ▼
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => window.location.href = '/login'}
+                              className="p-2 rounded-lg bg-gray-600 hover:bg-gray-700 text-gray-300 transition-colors duration-200"
+                              title="Sign in to vote"
+                            >
+                              ▲
+                            </button>
+                            <span className="text-xl font-medium text-gray-200">
+                              {question.votes || 0}
+                            </span>
+                            <button
+                              onClick={() => window.location.href = '/login'}
+                              className="p-2 rounded-lg bg-gray-600 hover:bg-gray-700 text-gray-300 transition-colors duration-200"
+                              title="Sign in to vote"
+                            >
+                              ▼
+                            </button>
+                          </>
+                        )}
                       </div>
                       <div className="flex-1">
                         <h3
@@ -349,9 +474,19 @@ const QuestionsAndAnswers = () => {
                         >
                           {question.title}
                         </h3>
-                        <p className="mt-3 text-gray-300 leading-relaxed">
-                          {question.body}
-                        </p>
+                        <div 
+                          className="mt-3 text-gray-300 leading-relaxed prose prose-invert max-w-none"
+                          dangerouslySetInnerHTML={{ 
+                            __html: question.body
+                              .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                              .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                              .replace(/~~(.*?)~~/g, '<del>$1</del>')
+                              .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300">$1</a>')
+                              .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full h-auto rounded" />')
+                              .replace(/\n\u2022 /g, '<br/>• ')
+                              .replace(/\n\d+\. /g, '<br/>1. ')
+                          }}
+                        />
 
                         <div className="flex flex-wrap gap-4 items-center mt-4">
                           <span className="text-indigo-300">

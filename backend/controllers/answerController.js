@@ -89,6 +89,18 @@ export const updateVote = async (req, res) => {
 
     const updatedAnswer = await answer.save();
 
+    // Create notification for answer author when someone votes
+    if (action === 'upvote') {
+      await createNotification(
+        answer.user,
+        userId,
+        'vote',
+        `Someone upvoted your answer`,
+        answer.question,
+        answer._id
+      );
+    }
+
     res.status(200).json({
       message: `Answer successfully ${action}d`,
       answer: updatedAnswer,
@@ -98,7 +110,52 @@ export const updateVote = async (req, res) => {
   }
 };
 
-// export const updateVote = async (req, res) => {
+// Accept an answer
+export const acceptAnswer = async (req, res) => {
+  try {
+    const { answerId } = req.params;
+    const userId = req.user._id;
+
+    // Find the answer and populate question
+    const answer = await Answer.findById(answerId).populate('question');
+    if (!answer) {
+      return res.status(404).json({ error: 'Answer not found' });
+    }
+
+    // Check if user is the question owner
+    if (answer.question.user.toString() !== userId.toString()) {
+      return res.status(403).json({ error: 'Only question owner can accept answers' });
+    }
+
+    // Unaccept any previously accepted answers for this question
+    await Answer.updateMany(
+      { question: answer.question._id },
+      { status: 'pending' }
+    );
+
+    // Accept this answer
+    answer.status = 'accepted';
+    await answer.save();
+
+    // Create notification for answer author
+    await createNotification(
+      answer.user,
+      userId,
+      'accept',
+      `Your answer was accepted for: "${answer.question.title}"`,
+      answer.question._id,
+      answer._id
+    );
+
+    res.status(200).json({
+      message: 'Answer accepted successfully',
+      answer: answer
+    });
+  } catch (err) {
+    console.error('Error accepting answer:', err);
+    res.status(500).json({ error: err.message });
+  }
+};
 //   const { answerId } = req.params;
 //   const { action, userId } = req.body; // 'upvote' or 'downvote'
 

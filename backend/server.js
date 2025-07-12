@@ -34,7 +34,12 @@ app.use(cors(corsOptions)); // Apply CORS middleware with options
 // Rate limiting to prevent abuse
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per window
+  max: 1000, // Increased from 100 to 1000 requests per window
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+  // Skip rate limiting for development
+  skip: (req) => process.env.NODE_ENV === 'development'
 });
 app.use(limiter);
 const _dirname = path.resolve();

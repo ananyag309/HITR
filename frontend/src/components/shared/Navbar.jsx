@@ -322,9 +322,6 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home", icon: Home },
     { href: "/questions", label: "Questions", icon: MessageCircle },
-    { href: "/users", label: "Users", icon: Users },
-    { href: "https://astonishing-arithmetic-d5066a.netlify.app/", label: "Tech-UI", icon: Search },
-    { href: "https://rococo-tapioca-95fc7d.netlify.app/", label: "CC", icon: Search },
   ];
 
   return (
@@ -342,7 +339,7 @@ export default function Navbar() {
           >
             <a href="/">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                DevFlow
+                StackIt
               </span>
             </a>
           </motion.div>

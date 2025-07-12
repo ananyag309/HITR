@@ -1,6 +1,6 @@
-# DevFlow
+# StackIt
 
-**DevFlow** is a collaborative platform designed to help developers solve coding challenges faster, together. It enables real-time collaboration, problem-solving, and skill development within a supportive community.
+**StackIt** is a collaborative platform designed to help developers solve coding challenges faster, together. It enables real-time collaboration, problem-solving, and skill development within a supportive community.
 
 ## Features
 
@@ -10,7 +10,7 @@
 
 ## Live Demo
 
-Experience DevFlow in action:
+Experience StackIt in action:
 
 [https://devflow-1.onrender.com/](https://devflow-1.onrender.com/)
 
@@ -24,10 +24,10 @@ Experience DevFlow in action:
 
 ## Installation
 
-To run DevFlow locally:
+To run StackIt locally:
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/devflow.git
-   cd devflow
+   git clone https://github.com/yourusername/stackit.git
+   cd stackit
