@@ -12,18 +12,50 @@ It focuses on simplicity, usability, and the core experience of asking and answe
 
 ## 👥 Team 4118
 
-- 👩‍💻 Ananya Gupta – [GitHub](https://github.com/ananyag309)
-- 🤖 Devanshi Jaiswal – [GitHub](https://github.com/Devanshi-cloud)
-- 📊 Aditi Singh – [GitHub](https://github.com/Aditi-Singh-15)
-- 🎨 Aditi Jain – [GitHub](https://github.com/Aditijainnn)
+Meet the amazing developers behind StackIt:
 
-## 👤 User Roles
+| Role | Name | GitHub | Expertise |
+|------|------|--------|-----------|
+| 👩‍💻 *Lead Developer* | Ananya Gupta | [GitHub](https://github.com/ananyag309) | Full-Stack Development, System Architecture |
+| 🤖 *Backend Engineer* | Devanshi Jaiswal | [GitHub](https://github.com/Devanshi-cloud) | Node.js, Database Design, API Development |
+| 📊 *Frontend Developer* | Aditi Singh | [GitHub](https://github.com/Aditi-Singh-15) | React.js, UI/UX, State Management |
+| 🎨 *UI/UX Designer* | Aditi Jain | [GitHub](https://github.com/Aditijainnn) | Design Systems, User Experience, Frontend |
 
-| Role   | Permissions |
-|--------|-------------|
-| Guest  | View all questions and answers |
-| User   | Register, log in, post questions/answers, vote |
-| Admin  | Moderate content |
+---
+
+## ✨ Key Features
+
+### 🔥 *Core Features*
+- ✅ *Rich Question Posting* - Create detailed questions with formatting
+- ✅ *Advanced Text Editor* - Bold, italic, links, images, code blocks
+- ✅ *Smart Voting System* - Upvote/downvote questions and answers
+- ✅ *Answer Acceptance* - Mark best answers as accepted solutions
+- ✅ *Tag-Based Organization* - Categorize and filter by technology tags
+- ✅ *Real-time Notifications* - Get notified of new answers and interactions
+- ✅ *Guest Mode* - Browse questions without account (read-only)
+- ✅ *Advanced Sorting* - Sort by newest, votes, answers, activity
+- ✅ *Responsive Design* - Perfect on desktop, tablet, and mobile
+
+### 🛡 *Security & Authentication*
+- ✅ *JWT Authentication* - Secure token-based auth system
+- ✅ *Protected Routes* - Restricted access for authenticated users
+- ✅ *Input Validation* - Prevent XSS and injection attacks
+- ✅ *Rate Limiting* - Prevent spam and abuse
+
+---
+
+## 👤 User Roles & Permissions
+
+| Role | View Questions | Ask Questions | Answer Questions | Vote | Accept Answers | Moderate |
+|------|---------------|---------------|------------------|------|----------------|----------|
+| *👀 Guest* | ✅ Yes | ❌ No | ❌ No | ❌ No | ❌ No | ❌ No |
+| *👤 Registered User* | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Own Questions | ❌ No |
+| *🛡 Admin* | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes |
+
+### 🔐 Guest Mode Restrictions
+- *Read-Only Access*: Guests can browse all questions and answers
+- *Authentication Required*: Must sign in to post, answer, or vote
+- *Seamless Signup*: Quick registration process to unlock full features
 
 ---
 
@@ -88,5 +120,6 @@ Supports:
 - *Editor:* 
 
 ---
+
 
 ## 🏆 Built with ❤ at Odoo Hackathon 2025
