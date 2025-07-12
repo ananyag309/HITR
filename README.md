@@ -113,11 +113,10 @@ Supports:
 
 ## 🧱 Tech Stack
 
-- *Frontend:* 
-- *Backend:* 
-- *Database:* 
-- *Auth & Security:* 
-- *Editor:* 
+- *Frontend:* React, CSS
+- *Backend:* JavaScript, 
+- *Database:* API Calls, MongoDB
+- *Auth & Security:* Setup
 
 ---
 
