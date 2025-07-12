@@ -31,8 +31,8 @@ Meet the amazing developers behind StackIt:
 
 ---
 
-## 📸 Demo (Coming Soon!)
-> Screenshots / Demo Video Link
+## 📸 Demo Video
+>  [Click Here](https://drive.google.com/drive/folders/1teeS9YU2_GCuPvhHnSKh6jgiVLDVc9JY)
 
 ---
 
